@@ -55,6 +55,7 @@ describe('Git repository tester', function () {
     });
 
     it('Should clone directory for repository', function (done) {
+        this.timeout(10000);
         let gitRepo = new GitRepo(repoPath, repository);
 
         async.waterfall([
@@ -72,7 +73,8 @@ describe('Git repository tester', function () {
         ], done)
     });
 
-    it.only('Should open existing repository', function (done) {
+    it('Should open existing repository', function (done) {
+        this.timeout(10000);
         let gitRepo = new GitRepo(repoPath, repository);
 
         async.waterfall([
@@ -96,6 +98,59 @@ describe('Git repository tester', function () {
             }
         ], done)
     });
+
+    it('Should error if wrong repository exists on dir', function (done) {
+        this.timeout(10000);
+        let gitRepo = new GitRepo(repoPath, repository);
+
+        var options = {
+            cwd: path.resolve(path.join(repoPath, '..'))
+        };
+
+        async.waterfall([
+            function (next) {
+                let command = ['git clone', 'git@github.com:caolan/async.git', repoPath];
+                exec(command.join(' '), options, err => next(err));
+            },
+            function (next) {
+                gitRepo.init(true, function(err) {
+                    assert.ok(err);
+                    assert.equal('EFAILED', err.code);
+                    assert.equal('Wrong repository', err.message);
+                    next();
+                });
+            },
+        ], done)
+    });
+
+
+    it('Should error if wrong repository format', function (done) {
+        let gitRepo = new GitRepo(repoPath, repository);
+
+        var options = {
+            cwd: path.resolve(path.join(repoPath, '..'))
+        };
+
+        async.waterfall([
+            function (next) {
+                let command = ['mkdir', repoPath];
+                exec(command.join(' '), options, err => next(err));
+            },
+            function (next) {
+                let command = ['touch', path.join(repoPath, '.git')];
+                exec(command.join(' '), options, err => next(err));
+            },
+            function (next) {
+                gitRepo.init(true, function(err) {
+                    assert.ok(err);
+                    assert.equal('EFAILED', err.code);
+                    assert.equal('Wrong repository format', err.message);
+                    next();
+                });
+            },
+        ], done)
+    });
+
 
 
 });
