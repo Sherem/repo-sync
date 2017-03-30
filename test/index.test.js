@@ -54,7 +54,7 @@ describe('Git repository tester', function () {
         ], done)
     });
 
-    it.only('Should clone directory for repository', function (done) {
+    it('Should clone directory for repository', function (done) {
         let gitRepo = new GitRepo(repoPath, repository);
 
         async.waterfall([
@@ -71,5 +71,31 @@ describe('Git repository tester', function () {
             }
         ], done)
     });
+
+    it.only('Should open existing repository', function (done) {
+        let gitRepo = new GitRepo(repoPath, repository);
+
+        async.waterfall([
+            function (next) {
+                var options = {
+                    cwd: path.resolve(path.join(repoPath, '..'))
+                };
+                let command = ['git clone', repository, repoPath];
+                exec(command.join(' '), options, err => next(err));
+            },
+            function (next) {
+                gitRepo.init(true, next);
+            },
+            function (next) {
+                var gitPath = path.join(repoPath, '.git');
+                fs.stat(repoPath, next);
+            },
+            function (stat, next) {
+                assert.ok(stat.isDirectory());
+                next();
+            }
+        ], done)
+    });
+
 
 });
