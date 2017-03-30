@@ -1,12 +1,37 @@
 {
-  "name": "openshift-cartridge-nodejs-template",
+  "name": "repository-sync",
   "version": "1.0.1",
-  "description": "Custom Node.js cartridge for OpenShift - sample application",
-  "private": true,
+    "private": true,
+
+  "description": "Github webhook to synchronize branch on fork and mater repo",
   "main": "start.js",
   "scripts": {
-    "start": "node --use_strict start.js"
+    "start": "node --use_strict start.js",
+    "test": "mocha"
   },
-  "author": "Ionut-Cristian Florescu <ionut.florescu@gmail.com>",
-  "license": "ISC"
+  "author": "Dmitry Sheremet",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.2.0",
+    "lodash": "^4.17.4",
+    "restify": "^4.3.0",
+    "restify-plugins": "^1.5.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sherem/repo-sync.git"
+  },
+  "keywords": [
+    "git",
+    "repository",
+    "synchronization",
+    "webhook"
+  ],
+  "bugs": {
+    "url": "https://github.com/Sherem/repo-sync/issues"
+  },
+  "homepage": "https://github.com/Sherem/repo-sync#readme"
 }
