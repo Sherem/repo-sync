@@ -6,7 +6,7 @@
   "description": "Github webhook to synchronize branch on fork and mater repo",
   "main": "start.js",
   "scripts": {
-    "start": "node --use_strict start.js",
+    "start": "node start.js",
     "test": "mocha"
   },
   "author": "Dmitry Sheremet",
