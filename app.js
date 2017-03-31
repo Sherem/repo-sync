@@ -3,6 +3,8 @@ const plugins = require('restify-plugins');
 
 const server = restify.createServer();
 
+let env = process.env;
+
 server.use(plugins.bodyParser());
 
 server.post('/repopush', (req, res, next)=> {
