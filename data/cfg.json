@@ -1,6 +1,6 @@
 {
     "dir": "./data/repos/fusion",
-    "url": "git@github.com:Sherem/sherem-fusion.git",
+    "destUrl": "git@github.com:Sherem/sherem-fusion.git",
     "branch": "sync-test",
     "sourceUrl": "git@github.com:Nexenta/fusion.git"
 }
