@@ -1,4 +1,5 @@
 {
+    "keyFile": "./data/keys/fusion/id_rsa",
     "dir": "./data/repos/fusion",
     "destUrl": "git@github.com:Sherem/sherem-fusion.git",
     "branch": "sync-test",
